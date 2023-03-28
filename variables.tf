@@ -1,9 +1,9 @@
 variable "resourceGroup" {
   type = string
-  default = rg57
+  default = "rg57"
 }
 
 variable "location" {
   type = string
-  default = westus3
+  default = "westus3"
 }
