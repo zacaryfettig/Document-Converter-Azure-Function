@@ -71,9 +71,9 @@ jobs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
 
-      -name: 'Az CLI login'
-        users: azure/login@v1
-        with:
+    - name: 'Az CLI login'
+      uses: azure/login@v1
+      with:
           ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
           ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
           ARM_SUBCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
