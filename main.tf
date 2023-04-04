@@ -9,7 +9,7 @@ resource "azurerm_storage_account" "storageAccount" {
   location                 = var.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
-  depends_on = [azurerm_resource_group]
+  depends_on = [azurerm_resource_group.resourceGroup.name]
 }
 
 resource "azurerm_service_plan" "servicePlan" {
@@ -18,7 +18,7 @@ resource "azurerm_service_plan" "servicePlan" {
   location            = var.location
   os_type             = "Windows"
   sku_name            = "Y1"
-    depends_on = [storageAccount]
+    depends_on = [azurerm_storage_account.storageAccount.name]
 }
 
 resource "azurerm_windows_function_app" "functionApp" {
