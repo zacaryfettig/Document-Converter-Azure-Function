@@ -9,6 +9,7 @@ resource "azurerm_storage_account" "storageAccount" {
   location                 = var.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
+  depends_on = [azurerm_resource_group]
 }
 
 resource "azurerm_service_plan" "servicePlan" {
