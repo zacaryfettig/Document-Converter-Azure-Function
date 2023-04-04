@@ -18,6 +18,7 @@ resource "azurerm_service_plan" "servicePlan" {
   location            = var.location
   os_type             = "Windows"
   sku_name            = "Y1"
+    depends_on = [storageAccount]
 }
 
 resource "azurerm_windows_function_app" "functionApp" {
