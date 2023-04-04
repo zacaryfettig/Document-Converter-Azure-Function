@@ -22,7 +22,7 @@ resource "azurerm_service_plan" "servicePlan" {
 }
 
 resource "azurerm_windows_function_app" "functionApp" {
-  name                = "functionApp"
+  name                = "functionApp64567345"
   resource_group_name = var.resourceGroup
   location            = var.location
 
