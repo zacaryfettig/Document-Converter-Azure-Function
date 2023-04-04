@@ -4,7 +4,7 @@ resource "azurerm_resource_group" "resourceGroup" {
 }
 
 resource "azurerm_storage_account" "storageAccount" {
-  name                     = "functionsstorage"
+  name                     = "functionsstorage64567345"
   resource_group_name      = var.resourceGroup
   location                 = var.location
   account_tier             = "Standard"
