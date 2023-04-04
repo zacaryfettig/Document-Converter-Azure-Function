@@ -92,13 +92,16 @@ jobs:
         ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
       run: terraform init -backend-config="storage_account_name$STORAGE_ACCOUNT" -backend-config="container_name=$CONTAINER_NAME" -backend-config="resource_group_name=$RESOURCE_GROUP_NAME" -backend-config "arm_client_id=$AZURE_CLIENT_ID" -backend-config="arm_subscription_id=AZURE_SUBSCRIPTION_ID" -backend-config="arm_tenant_id=TENANT_ID"
 
-
+    # Generates an execution plan for Terraform
+    - name: Terraform Plan
+    
+      run: terraform plan -input=false
       
 
       # On push to "main", build or change infrastructure according to Terraform configuration files
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
     - name: Terraform Apply
-      if: github.ref == 'refs/heads/"main"' && github.event_name == 'workflow_dispatch'
+
       run: terraform apply -auto-approve -input=false
       env:
         STORAGE_ACCOUNT: ${{ secrets.STORAGE_ACCOUNT }}
