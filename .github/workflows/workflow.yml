@@ -92,10 +92,6 @@ jobs:
         ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
       run: terraform init -backend-config="storage_account_name$STORAGE_ACCOUNT" -backend-config="container_name=$CONTAINER_NAME" -backend-config="resource_group_name=$RESOURCE_GROUP_NAME" -backend-config "arm_client_id=$AZURE_CLIENT_ID" -backend-config="arm_subscription_id=AZURE_SUBSCRIPTION_ID" -backend-config="arm_tenant_id=TENANT_ID"
 
-    # Generates an execution plan for Terraform
-    - name: Terraform Plan
-    
-      run: terraform plan -input=false
       
 
       # On push to "main", build or change infrastructure according to Terraform configuration files
