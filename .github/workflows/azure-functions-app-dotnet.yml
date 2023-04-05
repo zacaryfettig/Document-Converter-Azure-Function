@@ -31,7 +31,12 @@ jobs:
         client-id: ${{ secrets.AZURE_CLIENT_ID }}
         tenant-id: ${{ secrets.AZURE_TENANT_ID }}
         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-
+        
+    - name: Setup Nuget
+      uses: NuGet/setup-nuget@v1.0.2
+      
+    - name: Restore Nuget packages
+      run: nuget restore './functionApplication/DocToPdfFunction/DocToPdfFunction.sln'
 
 
     - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
