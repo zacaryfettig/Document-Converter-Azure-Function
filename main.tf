@@ -1,3 +1,9 @@
+resource "random_string" "random" {
+  length           = 8
+  special          = false
+  upper            = false
+}
+
 resource "azurerm_resource_group" "resourceGroup" {
     name = var.resourceGroup
     location = var.location
