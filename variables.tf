@@ -8,6 +8,12 @@ variable "location" {
   default = "westus3"
 }
 
-variable "subscriptionID" {}
+variable "subscriptionID" {
+  type = string
+  description = "description"
+}
 
-variable "tenantID" {}
+variable "tenantID" {
+  type = string
+  description = "description"
+}
