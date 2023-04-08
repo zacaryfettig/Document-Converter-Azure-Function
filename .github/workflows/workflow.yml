@@ -7,7 +7,7 @@ permissions:
   contents: read
 
   env:
-  AZURE_FUNCTIONAPP_NAME: 'functionApp64567345'   # set this to your function app name on Azure
+  AZURE_FUNCTIONAPP_NAME: 'functionApp'   # set this to your function app name on Azure
   AZURE_FUNCTIONAPP_PACKAGE_PATH: './functionApplication/DocToPdfFunction'       # set this to the path to your function app project, defaults to the repository root
   DOTNET_VERSION: '6.0.x'                   # set this to the dotnet version to use (e.g. '2.1.x', '3.1.x', '5.0.x')
 
@@ -76,7 +76,7 @@ jobs:
         TF_VAR_subscriptionID: ${{ secrets.AZURE_SUBSCRIPTION_ID}}
         TF_VAR_tenantID: ${{ secrets.AZURE_TENANT_ID}}
         
-        
+
 
 ##Deploy Application        
     - name: Restore Nuget packages
