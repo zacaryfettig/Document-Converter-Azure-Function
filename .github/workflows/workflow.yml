@@ -76,6 +76,7 @@ jobs:
         TF_VAR_subscriptionID: ${{ secrets.AZURE_SUBSCRIPTION_ID}}
         TF_VAR_tenantID: ${{ secrets.AZURE_TENANT_ID}}
         
+        
 
 ##Deploy Application        
     - name: Restore Nuget packages
