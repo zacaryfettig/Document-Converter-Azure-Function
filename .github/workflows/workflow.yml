@@ -1,4 +1,4 @@
-name: 'Terraform'
+name: 'Terraform template and Deploy DotNet project to Azure Function App'
 on: workflow_dispatch
 
 
@@ -6,9 +6,14 @@ permissions:
   id-token: write
   contents: read
 
+  env:
+  AZURE_FUNCTIONAPP_NAME: 'functionApp64567345'   # set this to your function app name on Azure
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: './functionApplication/DocToPdfFunction'       # set this to the path to your function app project, defaults to the repository root
+  DOTNET_VERSION: '6.0.x'                   # set this to the dotnet version to use (e.g. '2.1.x', '3.1.x', '5.0.x')
+
 jobs:
-  terraform:
-    name: 'Terraform'
+  build-and-deploy:
+    name: 'build-and-deploy'
     runs-on: Windows-latest
     environment: production
 
@@ -32,10 +37,6 @@ jobs:
         client-id: ${{ secrets.AZURE_CLIENT_ID }}
         tenant-id: ${{ secrets.AZURE_TENANT_ID }}
         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-
-
-
-
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
@@ -63,9 +64,7 @@ jobs:
       run: terraform plan -input=false
 
 
-      # On push to "main", build or change infrastructure according to Terraform configuration files
-      # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
-    - name: Terraform Apply
+
       run: terraform apply -auto-approve -input=false
       env:
         STORAGE_ACCOUNT: ${{ secrets.STORAGE_ACCOUNT }}
@@ -76,3 +75,35 @@ jobs:
         ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
         TF_VAR_subscriptionID: ${{ secrets.AZURE_SUBSCRIPTION_ID}}
         TF_VAR_tenantID: ${{ secrets.AZURE_TENANT_ID}}
+
+           - name: 'Az CLI login'
+      uses: azure/login@v1
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        
+
+##Deploy Application        
+    - name: Restore Nuget packages
+      run: nuget restore './functionApplication/DocToPdfFunction/DocToPdfFunction.sln'
+
+
+    - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: 'Resolve Project Dependencies Using Dotnet'
+      shell: pwsh
+      run: |
+        pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
+        dotnet build --configuration Release --output ./output
+        popd
+
+    - name: 'Run Azure Functions Action'
+      uses: Azure/functions-action@v1
+      id: fa
+      with:
+        app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+        package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
