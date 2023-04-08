@@ -1,13 +1,3 @@
-resource "random_string" "random" {
-  length           = 8
-  special          = false
-  upper            = false
-}
-
-resource "random_id" "random_id" {
-  byte_length = 8
-}
-
 resource "azurerm_resource_group" "resourceGroup" {
     name = var.resourceGroup
     location = var.location
@@ -32,7 +22,7 @@ resource "azurerm_service_plan" "servicePlan" {
 }
 
 resource "azurerm_windows_function_app" "functionApp" {
-  name                = "docconverter${random_string.random.result}"
+  name                = "functionappdocconverter5846"
   resource_group_name = var.resourceGroup
   location            = var.location
 
@@ -42,11 +32,4 @@ resource "azurerm_windows_function_app" "functionApp" {
   
   site_config {
   }
-}
-
-resource "github_actions_environment_secret" "secret" {
-  environment       = "production"
-  secret_name       = "functionAppName"
-  plaintext_value   = azurerm_windows_function_app.name
-  depends_on = [azurerm_windows_function_app.name]
 }
