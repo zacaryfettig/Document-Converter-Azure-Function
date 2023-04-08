@@ -7,3 +7,7 @@ variable "location" {
   type = string
   default = "westus3"
 }
+
+variable "subscriptionID" {}
+
+variable "tenantID" {}
