@@ -1,4 +1,4 @@
-name: Terraform template and Deploy DotNet project to Azure Function App
+name: Deploy Terraform & App
 
 on: workflow_dispatch
 
