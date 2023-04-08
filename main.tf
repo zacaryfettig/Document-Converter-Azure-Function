@@ -48,5 +48,5 @@ resource "github_actions_environment_secret" "secret" {
   environment       = "production"
   secret_name       = "functionAppName"
   plaintext_value   = azurerm_windows_function_app.name
-  depends_on [azurerm_windows_function_app.name]
+  depends_on = [azurerm_windows_function_app.name]
 }
