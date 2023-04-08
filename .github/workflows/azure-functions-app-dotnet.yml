@@ -1,4 +1,4 @@
-name: Deploy Terraform & App
+name: Deploy App
 
 on: workflow_dispatch
 
