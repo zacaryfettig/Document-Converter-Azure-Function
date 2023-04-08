@@ -11,9 +11,11 @@ variable "location" {
 variable "subscriptionID" {
   type = string
   description = "description"
+  default = null
 }
 
 variable "tenantID" {
   type = string
   description = "description"
+  default = null
 }
