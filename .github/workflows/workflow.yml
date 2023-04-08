@@ -63,7 +63,7 @@ jobs:
         TF_VAR_tenantID: ${{ secrets.AZURE_TENANT_ID}}
       run: terraform plan -input=false
 
-
+    - name: Terraform Apply
       env:
         STORAGE_ACCOUNT: ${{ secrets.STORAGE_ACCOUNT }}
         CONTAINER_NAME: ${{ secrets.CONTAINER_NAME }}
