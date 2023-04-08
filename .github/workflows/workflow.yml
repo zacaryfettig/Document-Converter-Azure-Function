@@ -74,3 +74,5 @@ jobs:
         ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
         ARM_SUBCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
         ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+        TF_VAR_subscriptionID: ${{ secrets.AZURE_SUBSCRIPTION_ID}}
+        TF_VAR_tenantID: ${{ secrets.AZURE_TENANT_ID}}
