@@ -1,10 +1,14 @@
+resource "random_id" "random_id" {
+  byte_length = 8
+}
+
 resource "azurerm_resource_group" "resourceGroup" {
     name = var.resourceGroup
     location = var.location
 }
 
 resource "azurerm_storage_account" "storageAccount" {
-  name                     = "functionsstorage64567345"
+  name                     = "DocumentConverter${random_id.id.hex}"
   resource_group_name      = var.resourceGroup
   location                 = var.location
   account_tier             = "Standard"
@@ -22,7 +26,7 @@ resource "azurerm_service_plan" "servicePlan" {
 }
 
 resource "azurerm_windows_function_app" "functionApp" {
-  name                = "functionApp64567345"
+  name                = "DocumentConverter${random_id.id.hex}"
   resource_group_name = var.resourceGroup
   location            = var.location
 
