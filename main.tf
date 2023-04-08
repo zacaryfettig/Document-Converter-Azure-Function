@@ -14,7 +14,7 @@ resource "azurerm_resource_group" "resourceGroup" {
 }
 
 resource "azurerm_storage_account" "storageAccount" {
-  name                     = "docconverter-${random_id.random.result}"
+  name                     = "docconverter-${random_string.random.result}"
   resource_group_name      = var.resourceGroup
   location                 = var.location
   account_tier             = "Standard"
@@ -32,7 +32,7 @@ resource "azurerm_service_plan" "servicePlan" {
 }
 
 resource "azurerm_windows_function_app" "functionApp" {
-  name                = "docconverter${random_id.random.result}"
+  name                = "docconverter${random_string.random.result}"
   resource_group_name = var.resourceGroup
   location            = var.location
 
