@@ -14,7 +14,7 @@ Converts Microsoft Word Documents to PDF Files. Application is written in .Net c
 
 ## How To Deploy For Yourself Using Github Actions
 
-* Fork Repository from the main repo in the link
+* Fork Repository from this repo
 
 https://github.com/zacaryfettig/Document-Converter-Azure-Function
 
